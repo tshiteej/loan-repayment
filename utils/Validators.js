@@ -14,6 +14,7 @@ const changeLoanStatus = Joi.object({
   loanId: Joi.string().required(),
   status: Joi.string().required(),
 }).unknown(true);
+
 module.exports = {
   loanRequestValidator,
   repayValidator,

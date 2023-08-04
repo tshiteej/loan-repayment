@@ -8,19 +8,15 @@ const AdminController = require("../controllers/admin");
 
 const Validators = require("../utils/Validators");
 
-const auth = require("../middleware/auth");
+const adminAuth = require("../middleware/adminAuth");
 
+// @route    PUT /admin/loan/status
+// @desc     Admin changes the status of loan
+// @access   Protected
 router.put(
   "/loan/status",
-  auth,
+  adminAuth,
   handleRESTReq(AdminController.changeLoanStatus, Validators.changeLoanStatus)
 );
-
-// router.get("/details", auth, handleRESTReq(LoanController.getLoanData));
-// router.get(
-//   "/repay/:loanId",
-//   auth,
-//   handleRESTReq(LoanController.repayLoanById, Validators.repayValidator)
-// );
 
 module.exports = router;
