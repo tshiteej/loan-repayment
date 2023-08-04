@@ -6,7 +6,13 @@ const { loanStatus, repayStatus } = require("../utils/Factory/Enums");
 const moment = require("moment");
 
 const today = moment();
-
+/**
+ * kind: helper function
+ * @param {number} amount
+ * @param {number} tenure
+ * @param {ObjectId} loanId
+ * @returns {Array} repay
+ */
 const createRepaymentArray = async (amount, tenure, loanId) => {
   let repay = [];
   let repayAmount = amount / tenure;
@@ -22,6 +28,12 @@ const createRepaymentArray = async (amount, tenure, loanId) => {
   }
   return repay;
 };
+
+/**
+ *
+ * @param {Object} data (input from router)
+ * @returns {Object} (instance of loan created)
+ */
 const requestLoan = async (data) => {
   try {
     const { amount, tenure, user } = data;
@@ -50,6 +62,12 @@ const requestLoan = async (data) => {
   }
 };
 
+/**
+ *
+ * @param {Object} data (input from router)
+ * @returns {Array} (Aggregated data of all loans with respective repayments)
+ * Accepts: limit, offset (for pagination)
+ */
 const getLoanData = async (data) => {
   const { limit = 10, offset = 0, user } = data;
   const filters = [{ $match: { user: new ObjectId(user.id) } }];
@@ -68,9 +86,14 @@ const getLoanData = async (data) => {
 
   return response;
 };
-
+/**
+ *
+ * @param {Object} data (input from router)
+ * @returns {Object} response (data for next repayments)
+ */
 const repayLoanById = async (data) => {
   const { loanId, amount } = data;
+  //  create response skeleton object
   let response = {
     nextRepayDate: "",
     nextRepayAmount: "",
@@ -81,12 +104,13 @@ const repayLoanById = async (data) => {
 
   if (!loanData) throw new Error("Invalid loan Id");
   if (loanData.status == loanStatus.PAID) {
+    // Check if the Loan is already fully paid
     return { ...response, fullyPaid: true, success: true };
   } else {
     let repayments = await repaySchema
       .find({ loan: new ObjectId(loanId) })
       .sort({ serial: 1 });
-
+    // find the first repayment to be made
     let paymentToMake = repayments.find(
       (item) => item.status == repayStatus.PENDING
     );
@@ -96,12 +120,14 @@ const repayLoanById = async (data) => {
     if (!paymentToMake) return { ...response, fullyPaid: true, success: true };
     let amountToPay = paymentToMake.amount + (paymentToMake?.fine || 0);
 
+    // not allow payment of amount lesser than the payable for the current repayment
     if (amount < amountToPay) {
       throw new Error("Amount is less than payable");
     }
     let extra = amount - amountToPay;
 
     if (extra) {
+      // Deduct the extra paid amount from the next repayment
       await repaySchema.updateOne(
         {
           loan: new ObjectId(loanId),
@@ -110,6 +136,7 @@ const repayLoanById = async (data) => {
         { amount: paymentToMake.amount - extra }
       );
     }
+    // Mark currently paid repayment as PAID
     await repaySchema.updateOne(
       {
         loan: new ObjectId(loanId),
@@ -117,6 +144,7 @@ const repayLoanById = async (data) => {
       },
       { status: repayStatus.PAID }
     );
+    // Check if all the repayments are done, mark the loan as PAID
     if (paymentToMakeIndex == repayments.length - 1) {
       await loanSchema.updateOne(
         {
