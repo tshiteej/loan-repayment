@@ -2,9 +2,10 @@
   "name": "aspire",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon app.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +18,8 @@
     "mongodb-memory-server": "^8.13.0",
     "mongoose": "^7.4.2",
     "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
   }
 }
