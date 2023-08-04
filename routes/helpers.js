@@ -19,6 +19,7 @@ const handleRESTReq = (fn, validationSchema) => {
         ...req.params,
         ...req.query,
         ...req.headers,
+        user: req.user,
       };
       const data = await handleRequest(validationSchema, fn, dataValues);
       HttpResponseHandler.success(req, res, data);

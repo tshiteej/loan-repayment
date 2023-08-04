@@ -7,6 +7,10 @@ const repaySchema = new Schema({
     type: Number,
     required: true,
   },
+  serial: {
+    type: Number,
+    required: true,
+  },
   repayDate: {
     type: Date,
     required: true,

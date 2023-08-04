@@ -11,6 +11,7 @@ const { dbConnect } = require("./utils/InitApp");
 // console.log(profileRouters);
 // const usersRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
+const loanRoute = require("./routes/loan");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -24,6 +25,7 @@ app.set("view engine", "ejs");
 // routes
 // app.use("/users", usersRoute);
 app.use("/auth", authRoute);
+app.use("/loan", loanRoute);
 // app.use("/", profileRouters);
 
 // start server
