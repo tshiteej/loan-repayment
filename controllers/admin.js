@@ -3,9 +3,6 @@ const loanSchema = require("../models/Loan");
 const repaySchema = require("../models/Repayment");
 
 const { loanStatus, repayStatus } = require("../utils/Factory/Enums");
-const moment = require("moment");
-
-const today = moment();
 
 const changeLoanStatus = async (data) => {
   try {
