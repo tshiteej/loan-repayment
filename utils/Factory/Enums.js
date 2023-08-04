@@ -11,6 +11,7 @@ const loanStatus = {
 };
 
 const repayStatus = {
+  APPROVAL_PENDING: "APPROVAL_PENDING",
   PENDING: "PENDING",
   PAID: "PAID",
 };

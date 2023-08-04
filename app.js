@@ -9,6 +9,8 @@ const { dbConnect } = require("./utils/InitApp");
 // const profileRouters = require("./routes/profile");
 // const commentsRouters = require("./routes/comments");
 // console.log(profileRouters);
+// const usersRoute = require("./routes/users");
+const authRoute = require("./routes/auth");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -20,7 +22,8 @@ app.use(bodyParser.json());
 app.set("view engine", "ejs");
 
 // routes
-// app.use("/comments", commentsRouters);
+// app.use("/users", usersRoute);
+app.use("/auth", authRoute);
 // app.use("/", profileRouters);
 
 // start server
