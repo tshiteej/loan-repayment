@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
 // @desc     Register user
 // @access   Public
 router.post("/register", async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, type } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -71,6 +71,7 @@ router.post("/register", async (req, res) => {
       name,
       email,
       password,
+      type,
     });
 
     const salt = await bcrypt.genSalt(10);
@@ -82,6 +83,7 @@ router.post("/register", async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        type: type,
       },
     };
 

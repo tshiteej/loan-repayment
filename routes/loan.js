@@ -17,8 +17,8 @@ router.post(
 );
 
 router.get("/details", auth, handleRESTReq(LoanController.getLoanData));
-router.get(
-  "/repay",
+router.patch(
+  "/repay/:loanId",
   auth,
   handleRESTReq(LoanController.repayLoanById, Validators.repayValidator)
 );

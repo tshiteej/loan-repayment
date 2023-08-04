@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
   // Verify token
   try {
     jwt.verify(token, jwtSecret, async (error, decoded) => {
-      let userData = await User.findOne({ _id: decoded.user.id });
+      let userData = await User.findOne({ _id: decoded?.user?.id });
       if (error || !userData) {
         return res.status(401).json({ msg: "Token is not valid" });
       } else {
