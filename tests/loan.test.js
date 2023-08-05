@@ -12,7 +12,6 @@ const loginData = {
 })();
 async function getAuthToken() {
   const response = await request(app).post("/auth").send(loginData).expect(200);
-  //   console.log(response, "----RESPONSE----");
   return response.body.token;
 }
 
@@ -60,6 +59,4 @@ describe("POST /loan/request", () => {
       .expect("Content-Type", /json/)
       .expect(400);
   });
-
-  // Add more test cases for different scenarios, validation checks, etc.
 });

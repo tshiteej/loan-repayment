@@ -67,6 +67,4 @@ describe("POST /auth", () => {
       .expect("Content-Type", /json/)
       .expect(400);
   });
-
-  // Add more test cases for edge cases, login attempts for non-existing users, etc.
 });

@@ -16,7 +16,6 @@ let loanId = "";
 
 (async () => {
   await request(app).post("/auth/register").send(adminLoginData);
-  //   await request(app).post("/auth/register").send(loginData);
 })();
 // Helper function to authenticate an admin user and get the token
 async function getAdminAuthToken() {
@@ -79,7 +78,6 @@ describe("PUT /admin/loan/status", () => {
   it("should return 200 and update loan status when accessed by admin", async () => {
     // Get the authentication token for an admin user
     const adminToken = await getAdminAuthToken();
-    // Mock the loan ID and status for an existing PENDING loan
     const newStatus = "APPROVED";
 
     // Make the request with the admin authentication token and valid data
@@ -90,8 +88,8 @@ describe("PUT /admin/loan/status", () => {
         loanId: loanId,
         status: newStatus,
       })
-      .expect("Content-Type", /json/);
-    //   .expect(200);
+      .expect("Content-Type", /json/)
+      .expect(200);
 
     // Check if the response contains the updated loan status
     expect(response.body).toHaveProperty("data", true);
