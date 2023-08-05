@@ -27,5 +27,9 @@ Flow:
 Assumptions:
 - MEMBER and ADMIN user emails cannot be same
 
+Tech Disclaimer:
+- We are not using env variable now, so the variables are in a config file.
+- We are using mongodb-memory-server as DB, for ease of use in the assignment.
+- MongoDB was chosen over SQL databases, as data in this kind of use-cases might grow exponentially with time, with defined access patterns.
 
-P.S: No LLM model was used in the writing code/ doc of this assignment. 😅
+P.S: No LLM model(ChatGPT, Bard etc) was used in writing code/ doc of this assignment. 😅
