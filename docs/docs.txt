@@ -1,0 +1,31 @@
+The project has proper git commits and logs to check the code history and its evolution throughout the development process.
+
+Node version used: v17.9.1
+
+Collections Created:
+    1. User: To store data related to User profiles
+    2. Loan: To store data related to loan with a reference to users
+    3. Repayment: To store data related to repayments and fines with reference to loan
+
+Scripts to run the program:
+    1. Install Dependencies: npm i
+    2. Tests: npm run test
+    3. Program: npm run start || Run in dev env: npm run dev
+
+Flow:
+    1. User requests for loan
+        a. An entity in the loan collection is created with reference to the user. Status is PENDING
+        b. Multiple entries are created in the repayment collection, on the basis of tenure. Status is APPROVAL_PENDING
+    2. Admin Approves/ Rejects the loan on the basis of loan id
+        a. In case of approval, loan status chages to APPROVED, repayment statuses change to PENDING
+        b. In case of rejection, all the status change to REJECTED
+    3. User requests to pay the repayment
+        a. In case of exact value repayment, the closed one is marked PAID.
+        b. In case of extra amount payment, the extra amount is redudcted from the next repayment
+        c. when all the repayments are marked PAID, the loan is also marked PAID.
+
+Assumptions:
+- MEMBER and ADMIN user emails cannot be same
+
+
+P.S: No LLM model was used in the writing code/ doc of this assignment. 😅
