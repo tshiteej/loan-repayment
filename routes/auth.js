@@ -41,6 +41,7 @@ router.post("/", async (req, res) => {
     const payload = {
       user: {
         id: user.id,
+        type: user.type,
       },
     };
 

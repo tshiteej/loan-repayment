@@ -37,7 +37,7 @@ const createRepaymentArray = async (amount, tenure, loanId) => {
 const requestLoan = async (data) => {
   try {
     const { amount, tenure, user } = data;
-
+    if (amount <= 0 || tenure <= 0) throw new Error("Invalid tenure or amount");
     const loanObject = {
       user: user.id,
       amount,
